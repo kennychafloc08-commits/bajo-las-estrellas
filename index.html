@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#17152f">
+  <title>Bajo las estrellas, para ti mi leoncita ✨</title>
+  <style>
+    :root {
+      --pink: #ffc5d8;
+      --pink-strong: #ff91b8;
+      --cream: #fff5f8;
+      --night: #17152f;
+      --night-light: #292345;
+      --text: #fff5fa;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+      background:
+        radial-gradient(ellipse at 20% 15%, rgba(111, 77, 134, .34), transparent 35%),
+        radial-gradient(ellipse at 85% 45%, rgba(255, 145, 184, .12), transparent 30%),
+        linear-gradient(180deg, #17152f 0%, #24203f 48%, #302442 100%);
+      overflow-x: hidden;
+    }
+
+    #sky, #heart-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    #sky { z-index: 0; }
+    #heart-layer { z-index: 5; }
+
+    .star {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: #fff4fb;
+      border-radius: 50%;
+      opacity: .75;
+      animation: twinkle var(--duration, 3s) ease-in-out infinite alternate;
+    }
+    @keyframes twinkle {
+      from { opacity: .25; transform: scale(.7); }
+      to { opacity: 1; transform: scale(1.35); }
+    }
+
+    .moon {
+      position: absolute;
+      top: 8%;
+      right: 11%;
+      width: clamp(58px, 10vw, 100px);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: #ffe3ed;
+      box-shadow: 0 0 25px rgba(255, 203, 225, .35), 0 0 70px rgba(255, 203, 225, .14);
+    }
+    .moon::after {
+      content: "";
+      position: absolute;
+      top: -8px;
+      left: 22px;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: #1b1834;
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+      width: min(900px, 100%);
+      margin: auto;
+      padding: 26px 20px 70px;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0 24px;
+      color: #ffe4ef;
+      font-size: .92rem;
+    }
+    .brand { letter-spacing: .04em; font-weight: 700; }
+    .music-button {
+      border: 1px solid rgba(255, 219, 234, .4);
+      background: rgba(255, 255, 255, .08);
+      color: #fff3f8;
+      border-radius: 999px;
+      padding: 10px 14px;
+      cursor: pointer;
+      font: inherit;
+      transition: background .2s, transform .2s;
+    }
+    .music-button:hover { background: rgba(255,255,255,.15); transform: translateY(-1px); }
+
+    .hero {
+      min-height: 72vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 70px 10px 60px;
+    }
+    .eyebrow {
+      color: var(--pink);
+      text-transform: uppercase;
+      letter-spacing: .22em;
+      font-size: .74rem;
+      margin-bottom: 18px;
+    }
+    h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 400;
+      font-size: clamp(2.8rem, 9vw, 5.7rem);
+      line-height: 1.05;
+      margin: 0;
+      text-shadow: 0 0 35px rgba(255, 173, 205, .18);
+    }
+    h1 span { color: var(--pink); font-style: italic; }
+    .hero p {
+      max-width: 520px;
+      line-height: 1.8;
+      color: #eadfea;
+      font-size: clamp(1rem, 2.5vw, 1.15rem);
+      margin: 25px auto 28px;
+    }
+    .primary-button {
+      border: 0;
+      border-radius: 999px;
+      padding: 14px 24px;
+      color: #3b2440;
+      background: linear-gradient(135deg, #ffd8e6, #ff9fbe);
+      font-size: 1rem;
+      font-weight: 700;
+      box-shadow: 0 8px 28px rgba(255, 145, 184, .2);
+      cursor: pointer;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .primary-button:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(255, 145, 184, .3); }
+    .hint { color: #c9bdd4; font-size: .83rem; margin-top: 15px; }
+
+    .section {
+      margin: 20px auto 0;
+      padding: clamp(22px, 5vw, 42px);
+      border: 1px solid rgba(255, 220, 236, .17);
+      border-radius: 26px;
+      background: rgba(255, 245, 250, .055);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 18px 55px rgba(0,0,0,.12);
+    }
+    .section h2 {
+      font: 400 clamp(1.8rem, 5vw, 2.6rem) Georgia, serif;
+      text-align: center;
+      color: var(--pink);
+      margin: 0 0 16px;
+    }
+    .section-intro {
+      text-align: center;
+      color: #e5d9e7;
+      line-height: 1.8;
+      max-width: 610px;
+      margin: 0 auto;
+    }
+    .surprise-content {
+      display: none;
+      text-align: center;
+      margin-top: 26px;
+      animation: appear .7s ease both;
+    }
+    .surprise-content.show { display: block; }
+    .surprise-content p { line-height: 1.9; color: #fff0f7; }
+    .big-heart { font-size: 2.8rem; animation: heartbeat 1.5s ease-in-out infinite; display: inline-block; }
+    @keyframes heartbeat { 0%,100% { transform: scale(1); } 15% { transform: scale(1.15); } 30% { transform: scale(1); } 45% { transform: scale(1.1); } }
+    @keyframes appear { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+    .letter {
+      background: linear-gradient(145deg, rgba(255, 226, 237, .13), rgba(255,255,255,.045));
+    }
+    .letter-paper {
+      max-width: 650px;
+      margin: 24px auto 0;
+      padding: clamp(22px, 5vw, 38px);
+      color: #f9eaf2;
+      border: 1px solid rgba(255, 205, 226, .28);
+      border-radius: 18px;
+      background: rgba(22, 19, 45, .32);
+      line-height: 1.95;
+      font-size: 1.02rem;
+    }
+    .letter-paper p { margin: 0 0 16px; }
+    .signature { text-align: right; color: var(--pink); font-family: Georgia, serif; font-style: italic; font-size: 1.2rem; }
+    footer { text-align: center; padding: 38px 12px 0; color: #c9bdd4; font-size: .85rem; }
+    footer .tiny-heart { color: var(--pink); }
+
+    .floating-heart {
+      position: absolute;
+      bottom: -35px;
+      color: #ffb7d0;
+      opacity: 0;
+      animation: float-up 4.5s ease-in forwards;
+      filter: drop-shadow(0 0 8px rgba(255,145,184,.3));
+    }
+    @keyframes float-up {
+      0% { opacity: 0; transform: translateY(0) rotate(0deg) scale(.7); }
+      12% { opacity: .9; }
+      85% { opacity: .7; }
+      100% { opacity: 0; transform: translateY(-110vh) rotate(25deg) scale(1.2); }
+    }
+
+    @media (max-width: 560px) {
+      main { padding: 18px 15px 48px; }
+      header { align-items: flex-start; }
+      .brand { padding-top: 8px; }
+      .music-button { padding: 9px 11px; font-size: .82rem; }
+      .hero { min-height: 68vh; padding-top: 65px; }
+      .moon { top: 13%; right: 8%; }
+      .section { border-radius: 21px; }
+      .letter-paper { font-size: .97rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
+    }
+  </style>
+</head>
+<body>
+  <div id="sky" aria-hidden="true"><div class="moon"></div></div>
+  <div id="heart-layer" aria-hidden="true"></div>
+
+  <main>
+    <header>
+      <div class="brand">♡ Un mensaje para ti</div>
+      <button class="music-button" id="musicButton" type="button" aria-pressed="false">♫ Activar música</button>
+    </header>
+    <audio id="miMusica" loop>
+      <source src="Dream, Ivory - welcome and goodbye (Official Video).mp3" type="audio/mpeg">
+      Tu navegador no puede reproducir este audio.
+    </audio>
+
+    <section class="hero" aria-labelledby="main-title">
+      <div class="eyebrow">hecho con cariño, solo para ti</div>
+      <h1 id="main-title">Bajo las<br><span>estrellas</span></h1>
+      <p>
+        Entre tantas cosas bonitas que existen en este mundo,
+        tu eres la mas hermosa de todo lo que existe. 🌙
+      </p>
+      <button class="primary-button" id="surpriseButton" type="button">Tengo algo para ti ♡</button>
+      <div class="hint">Toca el botón, hay una sorpresita ✨</div>
+    </section>
+
+    <section class="section" id="surprise" aria-labelledby="surprise-title">
+      <h2 id="surprise-title">Una pequeña sorpresa</h2>
+      <p class="section-intro">Eres la más hermosa de todo lo que existe. 🌙</p>
+      <div class="surprise-content" id="surpriseContent" aria-live="polite">
+        <div class="big-heart">♡</div>
+        <p>
+          Si pudiera pedir un deseo mirando las estrellas, sería repetir aquel dia de haber estado a tu lado. 💗
+        </p>
+        <p>Porque hablar contigo siento esa forma bonita de mejorar un día cualquiera.</p>
+      </div>
+    </section>
+
+    <section class="section letter" id="letter" aria-labelledby="letter-title">
+      <h2 id="letter-title">Una cartita para ti 💌</h2>
+      <p class="section-intro">Y antes de que te vayas, quería dejarte estas palabritas.</p>
+      <div class="letter-paper">
+        <p>Holaaa, mi loka</p>
+        <p>
+          Se que esto es solo una página en internet pero la hice pensando en ti,
+          Quiero demostrarte mis sentimientos a ti, que eres una persona muy especial para mí 
+          y que me encantaría poder verte sonreír nuevamente, aunque sea un poquito.
+        </p>
+        <p>
+          Me gusto poder compartir momentos contigo, la conversacion inesperada de aquel dia 
+          y esa sensación bonita que aparece cuando alguien empieza a volverse especial sin que
+          uno lo planee demasiado.
+        </p>
+        <p>
+          No sé qué nos tenga preparado el tiempo y tampoco quiero apresurar nada.
+          Por ahora solo quería que supieras que me alegra haberte conocido y que tienes
+          un lugarcito bonito en mis pensamientos todo el tiempo.
+        </p>
+        <p>Ojalá poder volvernos a ver...♡</p>
+        <p class="signature">Con mucho cariño, tu papoi ✨</p>
+      </div>
+    </section>
+
+    <footer>
+      Hecho con mucho cariño <span class="tiny-heart">♡</span><br>
+      <span>Que nunca te falten estrellas para pedir deseos.</span>
+      <span>Eres una mujer maravillosa, siempre sigue así.</span>
+    </footer>
+  </main>
+  <script>  
+    // Crear estrellas decorativas en el cielo.
+    const sky = document.getElementById('sky');
+    for (let i = 0; i < 95; i++) {
+      const star = document.createElement('span');
+      star.className = 'star';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.top = Math.random() * 100 + '%';
+      star.style.setProperty('--duration', (2 + Math.random() * 4) + 's');
+      star.style.animationDelay = (Math.random() * 4) + 's';
+      const size = 1 + Math.random() * 2.3;
+      star.style.width = size + 'px';
+      star.style.height = size + 'px';
+      sky.appendChild(star);
+    }
+
+    // Mostrar la sorpresa y lanzar algunos corazones.
+    const surpriseButton = document.getElementById('surpriseButton');
+    const surpriseContent = document.getElementById('surpriseContent');
+    const heartLayer = document.getElementById('heart-layer');
+
+    function createHeart() {
+      const heart = document.createElement('span');
+      heart.className = 'floating-heart';
+      heart.textContent = ['♡', '♥', '💕', '✧'][Math.floor(Math.random() * 4)];
+      heart.style.left = (5 + Math.random() * 90) + '%';
+      heart.style.fontSize = (16 + Math.random() * 22) + 'px';
+      heart.style.animationDuration = (3.5 + Math.random() * 2) + 's';
+      heartLayer.appendChild(heart);
+      heart.addEventListener('animationend', () => heart.remove());
+    }
+
+    surpriseButton.addEventListener('click', () => {
+      surpriseContent.classList.add('show');
+      surpriseButton.textContent = 'Una cosita solo para ti ♡';
+      document.getElementById('surprise').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      for (let i = 0; i < 18; i++) {
+        setTimeout(createHeart, i * 100);
+      }
+    });
+
+    // Reproducir tu archivo MP3 con el botón del encabezado.
+    const musicButton = document.getElementById('musicButton');
+    const miMusica = document.getElementById('miMusica');
+
+    musicButton.addEventListener('click', async () => {
+      if (miMusica.paused) {
+        try {
+          await miMusica.play();
+          musicButton.textContent = '♫ Pausar música';
+          musicButton.setAttribute('aria-pressed', 'true');
+        } catch (error) {
+          alert('No se pudo reproducir la canción. Comprueba que el archivo MP3 esté en la misma carpeta que index.html y que su nombre coincida exactamente.');
+        }
+      } else {
+        miMusica.pause();
+        musicButton.textContent = '♫ Activar música';
+        musicButton.setAttribute('aria-pressed', 'false');
+      }
+    });
+
+  </script>
+</body>
+</html>
